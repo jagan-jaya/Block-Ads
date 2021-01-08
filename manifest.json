@@ -1,0 +1,35 @@
+{
+  "name": "Block Ads",
+  "version": "1.0",
+  "description": "Enjoy Ad Free Video streaming on youtube, Hotstar, MX Player ",
+
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "permissions": [
+  ],
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html",
+    "default_title": "Enjoy Ad Free Video streaming on youtube, Hotstar, MX Player "
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.hotstar.com/*"],
+      "js": ["contentScript_hotstar.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["https://www.mxplayer.in/*"],
+      "js": ["contentScript_mxplayer.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["contentScript_youtube.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "manifest_version": 2
+}
