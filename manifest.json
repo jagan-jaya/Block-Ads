@@ -1,18 +1,17 @@
 {
   "name": "Block Ads",
-  "version": "1.0",
-  "description": "Enjoy Ad Free Video streaming on youtube, Hotstar, MX Player ",
+  "version": "1.1",
+  "description": "Ad Blocker to Block Ads on youtube, Disney + Hotstar, MX Player, Facebook",
 
   "background": {
     "scripts": ["background.js"],
     "persistent": false
   },
-  "permissions": [
-  ],
+  "permissions": [],
   "browser_action": {
-    "default_icon": "icon.png",
+    "default_icon": "icon128.png",
     "default_popup": "popup.html",
-    "default_title": "Enjoy Ad Free Video streaming on youtube, Hotstar, MX Player "
+    "default_title": "Enjoy Ad Free Video streaming on youtube, Hotstar, MX Player, Facebook "
   },
   "content_scripts": [
     {
@@ -29,7 +28,13 @@
       "matches": ["https://www.youtube.com/*"],
       "js": ["contentScript_youtube.js"],
       "run_at": "document_end"
+    },
+    {
+      "matches": ["https://www.facebook.com/*"],
+      "js": ["contentScript_fb.js"],
+      "run_at": "document_end"
     }
   ],
+  "icons": { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" },
   "manifest_version": 2
 }

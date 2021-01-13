@@ -1,6 +1,6 @@
 function blockAd () {
     var tab = this;
-    if(tab.APP_CONFIG)
+    if(tab.APP_CONFIG && tab.APP_CONFIG.junu && tab.APP_CONFIG.junu.AD_CONFIG)
         {
             tab.APP_CONFIG.junu.AD_CONFIG.disable_ads_mweb_vod=true
             tab.APP_CONFIG.junu.AD_CONFIG_V1.disable_ads_mweb_vod=true
