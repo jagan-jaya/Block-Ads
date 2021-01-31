@@ -6,4 +6,4 @@ We don't collect any information about your personal data and the websites you v
 We don't transfer any data from your browser to outside.
 
 Note: you can enable/disable extension at any time by clicking on the Block Ads icon and toggling the Enable/Disable Button.
-Report your issues [here].
+Report your issues here - https://github.com/jagan-jaya/Block-Ads/issues
