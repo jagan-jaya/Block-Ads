@@ -3,22 +3,117 @@
   <head>
     <style>
       body {
-        min-width: 300px;
+        min-width: 400px;
+        margin: 0;
       }
       .content-wrp {
         box-shadow: 0 0 0 1px #dadce0;
         background-color: #fff;
-        border-radius: 8px;
-        padding: 12px;
+        padding: 15px 25px;
+        font-family: monospace;
+        font-size: 14px;
+      }
+      .extensionToggleSwitch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+      }
+
+      .extensionToggleSwitch input { 
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+      }
+
+      input:checked + .slider {
+        background-color: #34af6c;
+      }
+
+      input:focus + .slider {
+        box-shadow: 0 0 1px #34af6c;
+      }
+
+      input:checked + .slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+      }
+
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+      .extensionStatusWrp {
+        margin: 30px 0;
+        text-align: center;
+      }
+      .hide {
+        display: none;
+      }
+      .errorMessage,.extensionStatus {
+        font-size: 18px;
+        display: inline-block;
+        vertical-align: top;
+        margin: 5px 0;
+        margin-right: 10px;
+        color: #34af6c;
+      }
+      .errorMessage {
+        color: red;
+      }
+      .siteWiseStats {
+        width: 100%;
+        font-size: 14px;
+        text-align: center;
+        max-height: 50%;
+        overflow: auto;
+      }
+      .siteWiseStats td {
+        padding: 10px;
       }
     </style>
+    <script src="./popup.js"></script>
   </head>
   <body id="popup">
     <div class="content-wrp">
-      <h2>
-        Enjoy watching videos on youtube, hotstar, facebook and MX player without any Ad
+      <h3>
+        Browse Ad free on youtube, reddit, facebook, hotstar and more websites without much Ad
         intervention.
-      </h2>
+      </h3>
+      <div class="errorMessage hide">Unable to block Ads, please reload the page</div>
+      <div class="extensionStatusWrp">
+        <div class="extensionStatus">Block Ads Enabled</div>
+        <label class="extensionToggleSwitch">
+          <input type="checkbox" checked>
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <table class="siteWiseStats">
+      </table>
     </div>
   </body>
 </html>

@@ -1,15 +1,19 @@
-document.querySelectorAll("a[aria-label='Advertiser link']").forEach((e) => {
-  if (e && e.offsetParent) {
-    e.offsetParent.hidden = true;
-  }
-});
+let skippedAds = 0;
 function hideFeed(e) {
-  var feed = e.closest("div[data-pagelet]");
-  if (feed) feed.hidden = true;
+  var feed = e.offsetParent.offsetParent.offsetParent;
+  if (feed) {
+    skippedAds++;
+    feed.parentNode.removeChild(feed);
+  }
 }
 function skipAd() {
   try {
     document.querySelectorAll("a[href^='#']").forEach((e) => {
+      if (e && e.text && !/\d/.test(e.text)) {
+        hideFeed(e);
+      }
+    });
+    document.querySelectorAll("a[href^='/ads']").forEach((e) => {
       if (e && e.text && !/\d/.test(e.text)) {
         hideFeed(e);
       }
@@ -19,18 +23,18 @@ function skipAd() {
         hideFeed(e);
       }
     });
-    var ads = document.querySelectorAll("a[aria-label='Advertiser link']");
-    if (
-      ads &&
-      ads.length > 0 &&
-      ads[0] &&
-      ads[0].offsetParent &&
-      ads[0].offsetParent.offsetParent
-    ) {
-      ads[0].offsetParent.offsetParent.hidden = true;
-    }
+    document
+      .querySelectorAll("a[aria-label='Advertiser link']")
+      .forEach((e) => {
+        if (e && e.offsetParent) {
+          skippedAds++;
+          e.offsetParent.parentNode.removeChild(e.offsetParent);
+        }
+      });
   } catch (e) {}
 }
-setInterval(() => {
-    skipAd();
-}, 5000);
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  skipAd();
+  sendResponse({host:location.hostname, skipped:skippedAds});
+  skippedAds =0;
+});

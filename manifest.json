@@ -1,17 +1,21 @@
 {
   "name": "Block Ads",
-  "version": "1.1",
-  "description": "Ad Blocker to Block Ads on youtube, Disney + Hotstar, MX Player, Facebook",
+  "version": "2.0",
+  "description": "Blocks ads and restrict advertisers from tracking your browsing activity",
 
   "background": {
     "scripts": ["background.js"],
-    "persistent": false
+    "persistent": true
   },
-  "permissions": [],
+  "permissions": [
+    "<all_urls>",
+    "webRequest",
+    "webRequestBlocking"
+  ],
   "browser_action": {
     "default_icon": "icon128.png",
     "default_popup": "popup.html",
-    "default_title": "Enjoy Ad Free Video streaming on youtube, Hotstar, MX Player, Facebook "
+    "default_title": "Blocks ads while browsing web and watching videos on youtube, facebook, reddit, hotstar and more websites."
   },
   "content_scripts": [
     {
@@ -20,8 +24,13 @@
       "run_at": "document_end"
     },
     {
-      "matches": ["https://www.mxplayer.in/*"],
-      "js": ["contentScript_mxplayer.js"],
+      "matches": ["https://www.facebook.com/*"],
+      "js": ["contentScript_fb.js"],
+      "run_at": "document_end"
+    },
+    {
+      "matches": ["https://www.linkedin.com/*"],
+      "js": ["contentScript_linkedin.js"],
       "run_at": "document_end"
     },
     {
@@ -30,9 +39,15 @@
       "run_at": "document_end"
     },
     {
-      "matches": ["https://www.facebook.com/*"],
-      "js": ["contentScript_fb.js"],
-      "run_at": "document_end"
+      "matches": ["<all_urls>"],
+        "js": ["contentScript_gads.js"],
+        "run_at": "document_start",
+        "exclude_matches": [
+            "https://www.hotstar.com/*",
+            "https://www.youtube.com/*",
+            "https://www.facebook.com/*",
+            "https://www.linkedin.com/*"
+        ]
     }
   ],
   "icons": { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" },
